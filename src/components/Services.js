@@ -25,21 +25,12 @@ const services = [
   },
   {
     id: 'research',
-    title: 'Research and Development',
+    title: 'FTIR Analysis',
     icon: Microscope,
     description: 'Advanced research facilities, consultation services, and collaborative development programs',
     color: 'from-teal-500 to-emerald-500',
     bgLight: 'from-teal-50 to-emerald-50',
     glowColor: 'rgba(16,185,129,0.4)',
-  },
-  {
-    id: 'training',
-    title: 'Personnel Training',
-    icon: GraduationCap,
-    description: 'Professional training and certification programs for technical and laboratory personnel',
-    color: 'from-indigo-500 to-purple-500',
-    bgLight: 'from-indigo-50 to-purple-50',
-    glowColor: 'rgba(99,102,241,0.4)',
   },
 ];
 
@@ -96,7 +87,7 @@ export function Services() {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {services.map((service, index) => {
               const Icon = service.icon;
               return (

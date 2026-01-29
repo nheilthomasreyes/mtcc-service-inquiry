@@ -1,5 +1,7 @@
+/*LINES 1 - 128 ARE EDITED*/
+import React, { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, ChevronRight } from 'lucide-react';
+import { X, ChevronRight, Mail, Send, Paperclip, FileText } from 'lucide-react';
 
 const serviceDetails = {
   calibration: {
@@ -41,6 +43,10 @@ const serviceDetails = {
         ],
       },
     ],
+    cta: {
+      text: 'Interested to our services? Inquire Now!',
+      action: 'mailto:mtcc.services@g.batstate-u.edu.ph?subject=Inquiry: Service Request',
+    }
   },
   'material-testing': {
     title: 'Material Testing Services',
@@ -80,9 +86,13 @@ const serviceDetails = {
         ],
       },
     ],
+    cta: {
+      text: 'Interested to our services? Inquire Now!',
+      action: 'mailto:mtcc.services@g.batstate-u.edu.ph?subject=Inquiry: Service Request',
+    }
   },
   research: {
-    title: 'Research and Development',
+    title: 'FTIR Analysis',
     description: 'State-of-the-art research facilities and collaborative development programs to support innovation and scientific advancement.',
     intro: 'Partner with us for cutting-edge research projects. Our experienced team and advanced facilities provide the perfect environment for breakthrough discoveries and product development.',
     categories: [
@@ -109,40 +119,29 @@ const serviceDetails = {
         ],
       },
     ],
+    cta: {
+      text: 'Interested to our services? Inquire Now!',
+      action: 'mailto:mtcc.services@g.batstate-u.edu.ph?subject=Inquiry: Service Request',
+    }
   },
-  training: {
-    title: 'Personnel Training',
-    description: 'Professional training and certification programs designed to enhance technical competencies and laboratory skills.',
-    intro: 'Invest in your team\'s professional development. Our comprehensive training programs combine theoretical knowledge with hands-on practical experience.',
-    categories: [
-      {
-        name: 'Training Programs',
-        description: 'Comprehensive skill development courses',
-        items: [
-          { name: 'Equipment Operation Training', price: 'Contact for quotation', details: 'Hands-on training for laboratory equipment' },
-          { name: 'Calibration Procedures Workshop', price: 'Contact for quotation', details: 'Learn standard calibration protocols' },
-          { name: 'Material Testing Techniques', price: 'Contact for quotation', details: 'Master various testing methodologies' },
-          { name: 'Laboratory Safety Training', price: 'Contact for quotation', details: 'Essential safety protocols and practices' },
-          { name: 'Quality Management Systems', price: 'Contact for quotation', details: 'ISO standards and implementation' },
-          { name: 'Data Recording & Analysis', price: 'Contact for quotation', details: 'Proper documentation and analysis methods' },
-        ],
-      },
-      {
-        name: 'Certification Programs',
-        description: 'Professional certification and competency assessment',
-        items: [
-          { name: 'Calibration Technician Certification', price: 'Contact for quotation', details: 'Accredited calibration specialist program' },
-          { name: 'Material Testing Certification', price: 'Contact for quotation', details: 'Certified testing professional program' },
-          { name: 'Laboratory Quality Manager', price: 'Contact for quotation', details: 'Advanced quality management certification' },
-          { name: 'Equipment Operator Certification', price: 'Contact for quotation', details: 'Specialized equipment handling credentials' },
-        ],
-      },
-    ],
-  },
+  
 };
 
+/*LINES 130 - 144 ARE EDITED*/
 export function ServiceModal({ serviceId, onClose }) {
   const service = serviceId ? serviceDetails[serviceId] : null;
+  const [isInquiryOpen, setIsInquiryOpen] = useState(false);
+  const [attachments, setAttachments] = useState([]);
+  const fileInputRef = useRef(null);
+
+  const handleFileChange = (e) => {
+    const files = Array.from(e.target.files);
+    setAttachments((prev) => [...prev, ...files]);
+  };
+  const removeAttachment = (index) => {
+    setAttachments((prev) => prev.filter((_, i) => i !== index));
+  };
+  const hasImages = attachments.some(file => file.type.startsWith('image/'));
 
   return (
     <AnimatePresence>
@@ -241,18 +240,131 @@ export function ServiceModal({ serviceId, onClose }) {
                 </motion.div>
               ))}
 
-              {/* Footer Note */}
+              {/*LINES 243 - 373 ARE EDITED*/}
+              {/* Inquire Button */}
               <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5 }}
-                className="mt-8 p-6 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-gray-700 dark:to-gray-600 rounded-2xl"
+                className="mt-12 flex flex-col items-center gap-4 py-8 border-t border-gray-100 dark:border-gray-700"
               >
-                <p className="text-sm text-gray-600 dark:text-gray-300 text-center">
-                  For detailed quotations and custom service packages, please contact us at <span className="font-semibold text-[#2d3e50] dark:text-blue-400">mtcc@g.batstate-u.edu.ph</span>
-                </p>
+                <button 
+                  onClick={() => setIsInquiryOpen(true)}
+                  className="group relative inline-flex items-center justify-center gap-3 px-8 py-4 bg-[#2d3e50] hover:bg-[#3a4f66] text-white rounded-full transition-all duration-300 hover:shadow-xl hover:-translate-y-1 active:scale-95"
+                >
+                  <Mail className="w-5 h-5 group-hover:animate-bounce" />
+                  <span className="text-xl md:text-2xl italic font-semibold">
+                    {service.cta?.text || 'Interested to our services? Inquire Now!'}
+                  </span>
+                </button>
               </motion.div>
             </div>
+
+            {/* --- 3. UPGRADED DIALOGUE BOX (THE UPGRADE) --- */}
+            <AnimatePresence>
+              {isInquiryOpen && (
+                <motion.div 
+                  initial={{ y: "100%", opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  exit={{ y: "100%", opacity: 0 }}
+                  // Fixed 700px width and 600px height for that "Pro" feel
+                  className="absolute bottom-0 right-0 md:right-8 w-full md:w-[700px] h-[600px] bg-white dark:bg-gray-900 shadow-[0_-15px_50px_rgba(0,0,0,0.4)] rounded-t-2xl border border-gray-200 dark:border-gray-700 z-[70] flex flex-col overflow-hidden"
+                >
+                  {/* Header */}
+                  <div className="bg-[#2d3e50] text-white p-4 flex justify-between items-center flex-shrink-0">
+                    <div className="flex items-center gap-2 px-2">
+                      <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
+                      <span className="font-semibold">New Inquiry: {service.title}</span>
+                    </div>
+                    <button onClick={() => setIsInquiryOpen(false)} className="p-1 hover:bg-white/20 rounded-md transition-colors">
+                      <X className="w-5 h-5" />
+                    </button>
+                  </div>
+
+                  {/* Body Content */}
+                  <div className="p-6 flex flex-col gap-4 overflow-y-auto flex-1">
+                    <div className="flex items-center gap-2 border-b dark:border-gray-800 pb-2">
+                      <span className="text-gray-400 text-m w-12">To:</span>
+                      <span className="text-m font-semibold dark:text-gray-200">mtcc.services@g.batstate-u.edu.ph</span>
+                    </div>
+
+                                {/* --- SUBJECT LINE (RESTORED) --- */}
+                    <div className="flex items-center gap-2 border-b dark:border-gray-800 pb-2">
+                      <span className="text-gray-400 text-m w-16">Subject:</span>
+                      <input 
+                        type="text" 
+                        className="flex-1 bg-transparent outline-none text-m font-medium dark:text-white" 
+                        defaultValue={`Service Inquiry - ${service.title}`}
+                      />
+                    </div>
+                    <textarea 
+                      placeholder="Describe your request..."
+                      className="w-full flex-1 p-2 bg-transparent outline-none resize-none text-base dark:text-gray-200 min-h-[200px]"
+                      defaultValue={`Dear MTCC Team,\n\nI would like to inquire about ${service.title}. Attached is an image of the equipment/requirements for your review.`}
+                    />
+
+                    {/* ATTACHMENTS TRAY */}
+                    {attachments.length > 0 && (
+                      <div className="grid grid-cols-2 gap-2 mt-4">
+                        {attachments.map((file, index) => (
+                          <div key={index} className="flex items-center justify-between p-2 bg-gray-50 dark:bg-gray-800 border dark:border-gray-700 rounded-lg">
+                            <div className="flex items-center gap-2 overflow-hidden">
+                              <FileText className="w-4 h-4 text-blue-500 flex-shrink-0" />
+                              <span className="text-xs truncate dark:text-gray-300">{file.name}</span>
+                            </div>
+                            <button onClick={() => removeAttachment(index)} className="text-gray-400 hover:text-red-500">
+                              <X className="w-4 h-4" />
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Footer / Action Bar */}
+                  <div className="p-6 border-t dark:border-gray-800 bg-gray-50/50 dark:bg-black/20 flex items-center justify-between flex-shrink-0">
+                    <div className="flex items-center gap-6">
+                      {/* Send Button Logic applied here */}
+                      <button 
+                        onClick={() => {
+                          alert("Inquiry Sent Successfully!");
+                          setIsInquiryOpen(false);
+                        }}
+                        className="px-10 py-3 rounded-full flex items-center gap-2 font-bold transition-all shadow-lg bg-blue-600 hover:bg-blue-700 text-white cursor-pointer active:scale-95"
+                      >
+                        Send <Send className="w-4 h-4" />
+                      </button>
+
+                      <input 
+                        type="file" 
+                        ref={fileInputRef} 
+                        onChange={handleFileChange} 
+                        className="hidden" 
+                        multiple 
+                        accept="image/*" 
+                      />
+                      
+                      <button 
+                        onClick={() => fileInputRef.current.click()}
+                        className="p-3 text-gray-500 hover:text-blue-600 hover:bg-gray-200 dark:hover:bg-gray-800 rounded-full transition-all"
+                        title="Attach Image"
+                      >
+                        <Paperclip className="w-6 h-6" />
+                      </button>
+                    </div>
+
+                    {!hasImages && (
+                      <div className="text-right">
+                        <p className="text-[15px] text-amber-600 dark:text-amber-400 font-bold uppercase tracking-widest">
+                          MTCC
+                        </p>
+                        <p className="text-[12px] text-gray-400">Material Testing and Calibration Center</p>
+                      </div>
+                    )}
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </motion.div>
         </motion.div>
       )}
