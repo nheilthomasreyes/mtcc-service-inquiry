@@ -1,6 +1,7 @@
 import { Moon, Sun } from 'lucide-react';
 import { motion } from "framer-motion";
-import logo from "../assets/MTCC_LOGO.png";
+import logo from "../assets/MTCCORIG.png";
+import schoollogo from "../assets/BSULOGO.png";
 
 
 export function Header({ darkMode, toggleDarkMode }) {
@@ -18,47 +19,58 @@ export function Header({ darkMode, toggleDarkMode }) {
       {/* Glowing top border */}
       <motion.div
         className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-cyan-400 via-purple-400 to-teal-400"
-        animate={{
-          opacity: [0.5, 1, 0.5],
-        }}
-        transition={{
-          duration: 3,
-          repeat: Infinity,
-        }}
+        animate={{ opacity: [0.5, 1, 0.5] }}
+        transition={{ duration: 3, repeat: Infinity }}
       />
-      
+
       <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+        {/* Logo Section */}
         <motion.div
           className="flex items-center gap-4 cursor-pointer"
           whileHover={{ scale: 1.02 }}
           onClick={scrollToTop}
         >
-          <div className="relative">
+          <div className="relative flex items-center space-x-4">
+            <img src={schoollogo} alt="School Logo" className="w-12 h-12 md:w-14 md:h-14 relative z-10" />
             <img src={logo} alt="MTCC Logo" className="w-12 h-12 md:w-14 md:h-14 relative z-10" />
-            
+
             {/* Pulsing glow behind logo */}
             <motion.div
               className="absolute inset-0 bg-white/30 rounded-full blur-md"
-              animate={{
-                scale: [1, 1.3, 1],
-                opacity: [0.3, 0.6, 0.3],
-              }}
-              transition={{
-                duration: 3,
-                repeat: Infinity,
-              }}
+              animate={{ scale: [1, 1.3, 1], opacity: [0.3, 0.6, 0.3] }}
+              transition={{ duration: 3, repeat: Infinity }}
             />
           </div>
           <div>
-            <h1 className="text-white text-xl md:text-2xl drop-shadow-lg">
-              MTCC
-            </h1>
-            <p className="text-cyan-100 text-xs md:text-sm">
-              Material Testing and Calibration Center
-            </p>
+            <h1 className="text-white text-xl md:text-2xl drop-shadow-lg">MTCC</h1>
+            <p className="text-cyan-100 text-xs md:text-sm">Material Testing and Calibration Center</p>
           </div>
         </motion.div>
 
+        <div className="flex items-center gap-6">
+        {/* Navigation Buttons */}
+        <nav className="hidden md:flex gap-6">
+          <motion.button
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
+            className="text-white text-sm md:text-base font-medium hover:text-cyan-200 transition-colors"
+            onClick={() => document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' })}
+          >
+            Services
+          </motion.button>
+
+          <motion.button
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
+            className="text-white text-sm md:text-base font-medium hover:text-cyan-200 transition-colors"
+            onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+          >
+            About Us
+          </motion.button>
+        </nav>
+        
+
+        {/* Dark Mode Toggle */}
         <motion.button
           onClick={toggleDarkMode}
           whileHover={{ scale: 1.1, rotate: 180 }}
@@ -67,11 +79,9 @@ export function Header({ darkMode, toggleDarkMode }) {
           className="p-3 rounded-full bg-white/20 hover:bg-white/30 backdrop-blur-sm transition-colors border border-white/30 relative overflow-hidden group"
           aria-label="Toggle dark mode"
         >
-          {/* Animated gradient background on hover */}
           <motion.div
             className="absolute inset-0 bg-gradient-to-r from-cyan-400/20 to-purple-400/20 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
           />
-          
           {darkMode ? (
             <Sun className="w-6 h-6 text-yellow-300 relative z-10 drop-shadow-lg" />
           ) : (
@@ -79,6 +89,8 @@ export function Header({ darkMode, toggleDarkMode }) {
           )}
         </motion.button>
       </div>
+      </div>
     </motion.header>
   );
 }
+

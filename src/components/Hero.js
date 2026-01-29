@@ -106,12 +106,12 @@ export function Hero() {
             </div>
           </motion.div> */}
 
-          <h3 className="text-3xl md:text-5xl bg-gradient-to-r from-cyan-600 via-purple-600 to-teal-600 dark:from-cyan-300 dark:via-purple-300 dark:to-teal-300 bg-clip-text text-transparent mb-6 px-4">
-            Material Testing and Calibration Center
-          </h3>
+          <h3 className="text-3xl md:text-6xl pb-3 pt-1 bg-gradient-to-r from-cyan-600 via-purple-600 to-teal-600 dark:from-cyan-300 dark:via-purple-300 dark:to-teal-300 bg-clip-text text-transparent mb-6 px-4">
+  Material Testing and Calibration Center
+</h3>
           
           <motion.div
-            className="mb-8 space-y-4"
+            className="mb-8 space-y-5"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5 }}
@@ -122,36 +122,6 @@ export function Hero() {
             <p className="text-lg md:text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto px-4 italic">
               "Leading Innovations, Transforming Lives, Building the Nation"
             </p>
-          </motion.div>
-
-          <motion.div
-            className="flex flex-wrap gap-4 justify-center"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.8 }}
-          >
-            <motion.a
-              href="#services"
-              whileHover={{ scale: 1.05, boxShadow: '0 0 30px rgba(0,212,255,0.5)' }}
-              whileTap={{ scale: 0.95 }}
-              className="relative px-8 py-4 bg-gradient-to-r from-cyan-500 via-purple-500 to-teal-500 text-white rounded-xl font-medium shadow-lg transition-all overflow-hidden group"
-            >
-              <span className="relative z-10">Explore Our Services</span>
-              <motion.div
-                className="absolute inset-0 bg-gradient-to-r from-teal-500 via-purple-500 to-cyan-500"
-                initial={{ x: '100%' }}
-                whileHover={{ x: '0%' }}
-                transition={{ duration: 0.3 }}
-              />
-            </motion.a>
-            <motion.a
-              href="#vision"
-              whileHover={{ scale: 1.05, boxShadow: '0 0 30px rgba(124,58,237,0.4)' }}
-              whileTap={{ scale: 0.95 }}
-              className="px-8 py-4 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border-2 border-purple-400 dark:border-purple-500 text-purple-600 dark:text-purple-300 rounded-xl font-medium shadow-lg transition-all"
-            >
-              Our Vision
-            </motion.a>
           </motion.div>
         </motion.div>
 

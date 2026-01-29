@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { FlaskConical, Gauge, Microscope, GraduationCap } from 'lucide-react';
+import { SquareActivity, FlaskConical, Gauge, Microscope, GraduationCap } from 'lucide-react';
 import { useState } from 'react';
 import { ServiceModal } from './ServiceModal';
 import { HexagonalGrid } from './HexagonalGrid';
@@ -25,21 +25,12 @@ const services = [
   },
   {
     id: 'research',
-    title: 'Research and Development',
-    icon: Microscope,
-    description: 'Advanced research facilities, consultation services, and collaborative development programs',
+    title: 'FTIR Analysis',
+    icon: SquareActivity,
+    description: 'identify, quantify, and characterize organic and inorganic materials by measuring infrared light absorption to produce molecular fingerprints',
     color: 'from-teal-500 to-emerald-500',
     bgLight: 'from-teal-50 to-emerald-50',
     glowColor: 'rgba(16,185,129,0.4)',
-  },
-  {
-    id: 'training',
-    title: 'Personnel Training',
-    icon: GraduationCap,
-    description: 'Professional training and certification programs for technical and laboratory personnel',
-    color: 'from-indigo-500 to-purple-500',
-    bgLight: 'from-indigo-50 to-purple-50',
-    glowColor: 'rgba(99,102,241,0.4)',
   },
 ];
 
@@ -96,7 +87,7 @@ export function Services() {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {services.map((service, index) => {
               const Icon = service.icon;
               return (
@@ -247,9 +238,9 @@ export function Services() {
               Need more information about our services?
             </p>
             <motion.a
-              href="#contact"
               whileHover={{ scale: 1.05, boxShadow: '0 0 30px rgba(124,58,237,0.5)' }}
               whileTap={{ scale: 0.95 }}
+              onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
               className="inline-block px-8 py-3 bg-gradient-to-r from-cyan-500 via-purple-500 to-teal-500 text-white rounded-xl font-medium shadow-lg hover:shadow-xl transition-all relative overflow-hidden group"
             >
               <span className="relative z-10">Contact Us Today</span>

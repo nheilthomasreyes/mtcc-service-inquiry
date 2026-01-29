@@ -41,7 +41,7 @@ export default function App() {
         
         <main className="pt-20">
           <Hero />
-          <VisionMission />
+          {/* <VisionMission /> */}
           <Services />
           <Stats />
           <About />
